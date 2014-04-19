@@ -6,6 +6,7 @@ register = template.Library()
 
 from meta.templatetags.meta import *
 
+
 @register.simple_tag
 def generic_prop(namespace, name, value):
     """

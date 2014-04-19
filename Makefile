@@ -23,7 +23,7 @@ clean-pyc:
 	find . -name '*~' -exec rm -f {} +
 
 lint:
-	flake8 django-meta-mixin tests
+	flake8 meta_mixin tests
 
 test:
 	python runtests.py test

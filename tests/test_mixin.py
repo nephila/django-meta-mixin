@@ -10,6 +10,7 @@ from django.utils import timezone
 from example_app.models import Post
 from meta_mixin.models import ModelMeta
 
+
 class TestMeta_(TestCase):
 
     def setUp(self):
@@ -78,8 +79,7 @@ class TestMeta_(TestCase):
         from meta import settings
         settings.USE_OG_PROPERTIES = False
         response = self.client.get("/title/")
-        meta = self.post.as_meta()
-        self.assertFalse(response.rendered_content.find('og:description')>-1)
+        self.assertFalse(response.rendered_content.find('og:description') > -1)
         self.assertContains(response, '<meta itemprop="description" content="%s">' % self.post.meta_description)
         self.assertContains(response, '<meta name="twitter:description" content="%s">' % self.post.meta_description)
         self.assertContains(response, '<meta name="keywords" content="%s">' % ", ".join(self.post.meta_keywords.split(",")))

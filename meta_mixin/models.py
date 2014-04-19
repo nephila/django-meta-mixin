@@ -2,8 +2,6 @@
 from copy import copy
 from . import settings
 
-from meta import settings as mset
-from django.conf import settings as djset
 
 class ModelMeta(object):
     """
@@ -56,7 +54,8 @@ class ModelMeta(object):
                 else:
                     data = value
                 setattr(meta, field, data)
-        for field in ('og_description', 'twitter_description', 'gplus_description'):
+        for field in ('og_description', 'twitter_description',
+                      'gplus_description'):
             generaldesc = getattr(meta, 'description', False)
             if not getattr(meta, field, False) and generaldesc:
                 setattr(meta, field, generaldesc)
@@ -72,30 +71,30 @@ class ModelMeta(object):
             twitter_profile = None
             gplus_profile = None
 
-            def get_full_name(self): # pragma: no cover
+            def get_full_name(self):  # pragma: no cover
                 return None
         return Author()
 
     def get_author_url(self):
         try:
             return self.get_author().fb_url
-        except AttributeError: # pragma: no cover
+        except AttributeError:  # pragma: no cover
             return ''
 
     def get_author_name(self):
         try:
             return self.get_author().get_full_name()
-        except AttributeError: # pragma: no cover
+        except AttributeError:  # pragma: no cover
             return ''
 
     def get_author_twitter(self):
         try:
             return self.get_author().twitter_profile
-        except AttributeError: # pragma: no cover
+        except AttributeError:  # pragma: no cover
             return ''
 
     def get_author_gplus(self):
         try:
             return self.get_author().gplus_profile
-        except AttributeError: # pragma: no cover
+        except AttributeError:  # pragma: no cover
             return ''
