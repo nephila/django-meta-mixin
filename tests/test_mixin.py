@@ -9,6 +9,7 @@ from django.utils import timezone
 
 from example_app.models import Post
 from meta_mixin.models import ModelMeta
+from meta_mixin.templatetags.meta_extra import generic_prop, googleplus_scope
 
 
 class TestMeta_(TestCase):
@@ -83,3 +84,21 @@ class TestMeta_(TestCase):
         self.assertContains(response, '<meta itemprop="description" content="%s">' % self.post.meta_description)
         self.assertContains(response, '<meta name="twitter:description" content="%s">' % self.post.meta_description)
         self.assertContains(response, '<meta name="keywords" content="%s">' % ", ".join(self.post.meta_keywords.split(",")))
+
+    def test_generic_prop_basically_works(self):
+        """
+        Test vendorized generic_prop templatetag
+        """
+        self.assertEqual(
+            generic_prop('og', 'type', 'website'),
+            '<meta property="og:type" content="website">'
+        )
+
+    def test_google_plus_scope_works(self):
+        """
+        Test vendorized googleplus_scope templatetag
+        """
+        self.assertEqual(
+            googleplus_scope('bar'),
+            ' itemscope itemtype="http://schema.org/bar" '
+        )
