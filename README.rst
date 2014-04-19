@@ -100,11 +100,11 @@ Usage
     </html>
     
 Note
-####
+++++
 For Google+ support you must add `{% render_block 'html_extra' %}` in your template to add object type definition. See relevant Google+ snippets documentation (https://developers.google.com/+/web/snippet/)
 
 Example
-#######
++++++++
 
 Look at the `example` folder for a sample implementation.
 
@@ -114,7 +114,7 @@ Available properties
 **django-meta-mixin** currently supports the following properties:
 
 Generic properties
-##################
+++++++++++++++++++
 * title: object title,
 * description: generic object description, used for SEO and as default for specific description,
 * keywords: generic keywords for SEO
@@ -126,8 +126,8 @@ Generic properties
 * expiration_time: date-time of expiration
 * url: canonical object url
  
-OpenGraph properties
-####################
+Open Graph properties
++++++++++++++++++++++
 * og_description: object description in Open Graph
 * og_type: object type in Open Graph
 * og_app_id: Facebook App ID
@@ -138,7 +138,7 @@ OpenGraph properties
 
  
 Twitter Cards properties
-########################
+++++++++++++++++++++++++
 * twitter_description: object description on Twitter card (currently 200 chars max)
 * twitter_type: twitter card type
 * twitter_site: Website twitter account
@@ -146,7 +146,7 @@ Twitter Cards properties
 
 
 Google+ Snippet properties
-##########################
+++++++++++++++++++++++++++
 * gplus_description: object description
 * gplus_type: object type according to schema.org types
 * gplus_author: Author Google+ account
