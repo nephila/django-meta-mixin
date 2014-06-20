@@ -38,7 +38,7 @@ class Post(ModelMeta, models.Model):
         'description': 'get_description',
         'og_description': 'get_description',
         'keywords': 'get_keywords',
-        'image': 'get_image_url',
+        'image': 'get_image_full_url',
         'object_type': 'Article',
         'og_type': 'Article',
         'og_profile_id': '1111111111111',
@@ -52,7 +52,7 @@ class Post(ModelMeta, models.Model):
         'published_time': 'date_published',
         'modified_time': 'date_modified',
         'expiration_time': 'date_published_end',
-        'url': 'get_absolute_url',
+        'url': 'get_full_url',
         'author': 'get_author_name',
     }
 
@@ -71,8 +71,11 @@ class Post(ModelMeta, models.Model):
             description = self.abstract
         return description.strip()
 
-    def get_image_url(self):
-        return self.main_image.url
+    def get_image_full_url(self):
+        return self.make_full_url(self.main_image.url)
+
+    def get_full_url(self):
+        return self.make_full_url(self.get_absolute_url())
 
     def get_author(self):
         author = super(Post, self).get_author()

@@ -103,6 +103,6 @@ class ModelMeta(object):
     def make_full_url(self, url):
         s = Site.objects.get_current()
         if s.domain.find('http') > -1:
-            return "%s%s" % (s.domain, url)
+            return "%s%s" % (s.domain, url)  # pragma: no cover
         else:
             return "http://%s%s" % (s.domain, url)
