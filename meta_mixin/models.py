@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from copy import copy
+from django.contrib.sites.models import Site
 from . import settings
 
 
@@ -98,3 +99,10 @@ class ModelMeta(object):
             return self.get_author().gplus_profile
         except AttributeError:  # pragma: no cover
             return ''
+
+    def make_full_url(self, url):
+        s = Site.objects.get_current()
+        if s.domain.find('http') > -1:
+            return "%s%s" % (s.domain, url)
+        else:
+            return "http://%s%s" % (s.domain, url)
