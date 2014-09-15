@@ -32,7 +32,7 @@ class TestMeta_(TestCase):
 
     def test_as_meta(self):
         expected = {
-            'locale': False,
+            'locale': 'dummy_locale',
             'image': 'http://example.com/path/to/image',
             'object_type': 'Article',
             'tag': False,
@@ -60,7 +60,11 @@ class TestMeta_(TestCase):
         meta = self.post.as_meta()
         self.assertTrue(meta)
         for key in ModelMeta._metadata_default.keys():
-            self.assertEqual(expected[key], getattr(meta, key, False))
+            value = expected[key]
+            if value is not False:
+                self.assertEqual(value, getattr(meta, key))
+            else:
+                self.assertFalse(hasattr(meta, key))
 
     def test_templatetag(self):
         meta = self.post.as_meta()
