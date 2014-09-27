@@ -33,6 +33,9 @@ class Post(ModelMeta, models.Model):
     text = models.TextField(verbose_name=_(u'Post text'),
                             blank=True, default='')
 
+    _metadata_default = ModelMeta._metadata_default.copy() # purely for testing purposes
+    _metadata_default['locale'] = 'dummy_locale'
+
     _metadata = {
         'title': 'title',
         'description': 'get_description',

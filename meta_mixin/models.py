@@ -34,6 +34,7 @@ class ModelMeta(object):
         'expiration_time': False,
         'tag': False,
         'url': False,
+        'locale': False,
     }
 
     def as_meta(self):
@@ -41,10 +42,10 @@ class ModelMeta(object):
         Method that generates the Meta object (from django-meta)
         """
         from meta.views import Meta
-        metadata = copy(self._metadata)
-        metadata.update(self._metadata_default)
+        metadata = copy(self._metadata_default)
+        metadata.update(self._metadata)
         meta = Meta()
-        for field, value in self._metadata.items():
+        for field, value in metadata.items():
             if value:
                 attr = getattr(self, value, False)
                 if attr is not False:
