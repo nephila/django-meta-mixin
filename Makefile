@@ -26,20 +26,19 @@ lint:
 	flake8 meta_mixin tests
 
 test:
-	python runtests.py test
+	python cms_helper.py
 
 test-all:
 	tox
 
 coverage:
-	coverage run --source django-meta-mixin setup.py test
+	coverage erase
+	coverage run cms_helper.py
 	coverage report -m
-	coverage html
-	open htmlcov/index.html
 
 release: clean
-	python setup.py sdist upload
-	python setup.py bdist_wheel upload
+	python setup.py sdist bdist_wheel
+	twine upload dist/*
 
 sdist: clean
 	python setup.py sdist
