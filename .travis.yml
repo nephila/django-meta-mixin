@@ -2,16 +2,37 @@
 
 language: python
 
+sudo: false
+
 python:
-  - "3.3"
-  - "2.7"
-  - "2.6"
+  - 3.4
+  - 3.3
+  - 2.7
+  - 2.6
+
+env:
+  matrix:
+  - DJANGO='django16'
+  - DJANGO='django17'
+  - DJANGO='django18'
+
 
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
-install: pip install -r requirements-test.txt
+install:
+  - pip install -U tox>=1.8 coveralls
+  - "if [[ $TRAVIS_PYTHON_VERSION == '2.6' ]]; then export PYVER=py26; fi"
+  - "if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then export PYVER=py27; fi"
+  - "if [[ $TRAVIS_PYTHON_VERSION == '3.3' ]]; then export PYVER=py33; fi"
+  - "if [[ $TRAVIS_PYTHON_VERSION == '3.4' ]]; then export PYVER=py34; fi"
 
-# command to run tests using coverage, e.g. python setup.py test
-script: coverage run --source meta_mixin runtests.py
+# command to run tests, e.g. python setup.py test
+script: COMMAND='coverage run' tox -e"$PYVER-$DJANGO"
 
-# report coverage to coveralls.io
 after_success: coveralls
+
+matrix:
+  exclude:
+  - python: 2.6
+    env: DJANGO='django17'
+  - python: 2.6
+    env: DJANGO='django18'
