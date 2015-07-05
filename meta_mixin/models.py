@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from copy import copy
+
 from django.contrib.sites.models import Site
+
 from . import settings
 
 
@@ -16,7 +18,6 @@ class ModelMeta(object):
         'twitter_description': False,
         'gplus_description': False,
         'keywords': False,
-        'locale': None,
         'image': settings.DEFAULT_IMAGE,
         'object_type': settings.DEFAULT_TYPE,
         'og_type': settings.FB_TYPE,
@@ -50,7 +51,10 @@ class ModelMeta(object):
                 attr = getattr(self, value, False)
                 if attr is not False:
                     if callable(attr):
-                        data = attr()
+                        try:
+                            data = attr(field)
+                        except TypeError:
+                            data = attr()
                     else:
                         data = attr
                 else:
