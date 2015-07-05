@@ -24,9 +24,10 @@ To use it, defines a `_metadata` attribute as a dictionary of tag/value pairs;
 * **tag** is the name of the metatag as used by `meta.html` template
 * **value** is a string that is evaluated in the following order:
 
-  * model method name (which is called without argument at runtime)
+  * model method name called with the meta attribute as argument
+  * model method name called with no arguments
   * model attribute name (evaluated at runtime)
-  * string literal (if any of the above exists)
+  * string literal (if none of the above exists)
 
 If **value** is `False` or it is evaluated as `False` at runtime the tag is skipped.
 

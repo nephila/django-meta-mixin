@@ -53,8 +53,8 @@ class Post(ModelMeta, models.Model):
         'gplus_type': 'Article',
         'gplus_author': 'get_author_gplus',
         'published_time': 'date_published',
-        'modified_time': 'date_modified',
-        'expiration_time': 'date_published_end',
+        'modified_time': 'get_date',
+        'expiration_time': 'get_date',
         'url': 'get_full_url',
         'author': 'get_author_name',
     }
@@ -64,6 +64,14 @@ class Post(ModelMeta, models.Model):
         verbose_name_plural = _('blog articles')
         ordering = ("-date_published", "-date_created")
         get_latest_by = 'date_published'
+
+    def get_date(self, param):
+        if param == 'published_time':
+            return self.date_published
+        elif param == 'modified_time':
+            return self.date_modified
+        elif param == 'expiration_time':
+            return self.date_published_end
 
     def get_keywords(self):
         return self.meta_keywords.strip().split(",")
