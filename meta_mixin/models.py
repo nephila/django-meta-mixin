@@ -105,9 +105,13 @@ class ModelMeta(object):
         except AttributeError:  # pragma: no cover
             return ''
 
+    def get_meta_protocol(self):
+        return settings.META_SITE_PROTOCOL
+
     def make_full_url(self, url):
         s = Site.objects.get_current()
+        meta_protocol = self.get_meta_protocol()
         if s.domain.find('http') > -1:
             return "%s%s" % (s.domain, url)  # pragma: no cover
         else:
-            return "http://%s%s" % (s.domain, url)
+            return "%s://%s%s" % (meta_protocol, s.domain, url)

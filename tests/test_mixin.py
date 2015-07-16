@@ -30,6 +30,7 @@ class TestMeta_(TestCase):
             main_image='/path/to/image'
         )
 
+    @override_settings(META_SITE_PROTOCOL='http')
     def test_as_meta(self):
         expected = {
             'locale': 'dummy_locale',
@@ -106,3 +107,8 @@ class TestMeta_(TestCase):
             googleplus_scope('bar'),
             ' itemscope itemtype="http://schema.org/bar" '
         )
+
+    @override_settings(META_SITE_PROTOCOL='https')
+    def test_image_protocol(self):
+        meta = self.post.as_meta()
+        self.assertEqual('https://example.com/path/to/image', getattr(meta, 'image'))
