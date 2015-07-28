@@ -110,5 +110,7 @@ class TestMeta_(TestCase):
 
     @override_settings(META_SITE_PROTOCOL='https')
     def test_image_protocol(self):
+        from meta import settings
+        settings.SITE_PROTOCOL = 'https'
         meta = self.post.as_meta()
         self.assertEqual('https://example.com/path/to/image', getattr(meta, 'image'))

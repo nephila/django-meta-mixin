@@ -2,6 +2,7 @@
 from copy import copy
 
 from django.contrib.sites.models import Site
+from meta.settings import SITE_PROTOCOL
 
 from . import settings
 
@@ -106,12 +107,17 @@ class ModelMeta(object):
             return ''
 
     def get_meta_protocol(self):
-        return settings.META_SITE_PROTOCOL
+        return SITE_PROTOCOL
 
     def make_full_url(self, url):
         s = Site.objects.get_current()
         meta_protocol = self.get_meta_protocol()
+        if url.startswith('http'):
+            return url
         if s.domain.find('http') > -1:
             return "%s%s" % (s.domain, url)  # pragma: no cover
         else:
-            return "%s://%s%s" % (meta_protocol, s.domain, url)
+            if url.startswith('/'):
+                return "%s://%s%s" % (meta_protocol, s.domain, url)
+            else:
+                return "%s://%s/%s" % (meta_protocol, s.domain, url)
