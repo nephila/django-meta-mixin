@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from copy import copy
 
+from django.conf import settings as dj_settings
 from django.contrib.sites.models import Site
-from meta.settings import SITE_PROTOCOL
 
 from . import settings
 
@@ -107,7 +107,7 @@ class ModelMeta(object):
             return ''
 
     def get_meta_protocol(self):
-        return SITE_PROTOCOL
+        return dj_settings.META_SITE_PROTOCOL
 
     def make_full_url(self, url):
         s = Site.objects.get_current()
