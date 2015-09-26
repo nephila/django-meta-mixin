@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
+from __future__ import absolute_import, print_function, unicode_literals
+
 import contextlib
-from copy import copy
 import warnings
+from copy import copy
 
 from django.conf import settings as dj_settings
 from django.contrib.sites.models import Site

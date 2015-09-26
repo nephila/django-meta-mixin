@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from __future__ import absolute_import, print_function, unicode_literals
+
 from django.conf import settings as django_settings
 
 DEFAULT_IMAGE = getattr(django_settings, 'META_DEFAULT_IMAGE', False)
