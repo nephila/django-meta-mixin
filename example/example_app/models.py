@@ -83,7 +83,7 @@ class Post(ModelMeta, models.Model):
         return description.strip()
 
     def get_image_full_url(self):
-        return self.make_full_url(self.main_image.url)
+        return self.build_absolute_uri(self.main_image.url)
 
     def get_full_url(self):
         return self.make_full_url(self.get_absolute_url())
