@@ -1,3 +1,7 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+from __future__ import absolute_import, print_function, unicode_literals
+
 HELPER_SETTINGS = dict(
     ROOT_URLCONF='example_app.urls',
     INSTALLED_APPS=[
@@ -18,9 +22,7 @@ HELPER_SETTINGS = dict(
 
 
 def run():
-    import sys
     from djangocms_helper import runner
-    sys.path.insert(0, 'example')
     runner.run('meta_mixin')
 
 

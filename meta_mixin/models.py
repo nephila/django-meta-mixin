@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
+from __future__ import absolute_import, print_function, unicode_literals
+
 import contextlib
+import warnings
 from copy import copy
 
 from django.conf import settings as dj_settings
@@ -40,15 +43,19 @@ class ModelMeta(object):
         'locale': False,
     }
 
+    def get_meta(self, request=None):
+        metadata = copy(self._metadata_default)
+        metadata.update(self._metadata)
+        return metadata
+
     def as_meta(self, request=None):
         """
         Method that generates the Meta object (from django-meta)
         """
         from meta.views import Meta
-        metadata = copy(self._metadata_default)
-        metadata.update(self._metadata)
+        metadata = self.get_meta(request)
         meta = Meta()
-        with self.request(request):
+        with self._set_request(request):
             for field, value in metadata.items():
                 if value:
                     attr = getattr(self, value, False)
@@ -70,7 +77,7 @@ class ModelMeta(object):
         return meta
 
     @contextlib.contextmanager
-    def request(self, request):
+    def _set_request(self, request):
         self._request = request
         yield
         delattr(self, '_request')
@@ -120,7 +127,10 @@ class ModelMeta(object):
         return dj_settings.META_SITE_PROTOCOL
 
     def make_full_url(self, url):
-        DeprecationWarning()
+        warnings.warn(
+            'make_full_url is deprecated and it will be removed in 0.3',
+            DeprecationWarning
+        )
         return self.build_absolute_uri(url)
 
     def build_absolute_uri(self, url):
