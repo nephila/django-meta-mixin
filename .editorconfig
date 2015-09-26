@@ -1,5 +1,4 @@
-# editorconfig.org
-
+# http://editorconfig.org
 root = true
 
 [*]
@@ -9,9 +8,28 @@ end_of_line = lf
 charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
+max_line_length = 80
 
-[*.{scss,js,html}]
-indent_style = tab
+[*.md]
+trim_trailing_whitespace = false
 
 [*.rst]
 max_line_length = 80
+
+[*.py]
+max_line_length = 100
+
+[*.{scss,html}]
+indent_size = 2
+indent_style = space
+max_line_length = 120
+
+[*.js]
+indent_size = 2
+max_line_length = 120
+
+[*.yml]
+indent_size = 2
+
+[Makefile]
+indent_style = tab
