@@ -19,9 +19,9 @@ Concepts
 Actual data are evaluated at runtime pulling values from model attributes and
 methods.
 
-To use it, defines a `_metadata` attribute as a dictionary of tag/value pairs;
+To use it, defines a ``_metadata`` attribute as a dictionary of tag/value pairs;
 
-* **tag** is the name of the metatag as used by `meta.html` template
+* **tag** is the name of the metatag as used by ``meta.html`` template
 * **value** is a string that is evaluated in the following order:
 
   * model method name called with the meta attribute as argument
@@ -29,11 +29,35 @@ To use it, defines a `_metadata` attribute as a dictionary of tag/value pairs;
   * model attribute name (evaluated at runtime)
   * string literal (if none of the above exists)
 
-If **value** is `False` or it is evaluated as `False` at runtime the tag is skipped.
+If **value** is ``False`` or it is evaluated as ``False`` at runtime the tag is skipped.
 
-To use this mixin you must invoke `as_meta()` on the model instance
+To use this mixin you must invoke ``as_meta()`` on the model instance
 for example in the get_context_data().
 
+Request
++++++++
+
+``as_meta()`` accepts the ``request`` object that is saved locally and is available to methods by
+using the ``get_request`` method.
+
+
+Public interface
+++++++++++++++++
+
+``ModelMeta.get_meta(request=None)``: returns the metadata attributes definition. Tipically these
+are set in ``_metadata`` attribute in the model;
+
+``ModelMeta.as_meta(request=None)``: returns the meta representation of the object suitable for
+use in the template;
+
+``ModelMeta.get_request()``: returns the ``request`` object, if given as argument to ``as_meta``;
+
+``ModelMeta.get_author()``: returns the author object for the current instance. Default
+implementation does not return a valid object, this **must** be overidden in the application
+according to what is an author in the application domain;
+
+``ModelMeta.build_absolute_uri(url)``: create an absolute URL (i.e.: complete with protocol and
+domain); this is generated from the ``request`` object, if given as argument to ``as_meta``;
 
 
 Installation
@@ -59,7 +83,7 @@ Usage
     ]
 
 #. Configure ``django-meta`` according to documentation
-   (https://bitbucket.org/monwara/django-meta#rst-header-installation)
+   (https://github.com/nephila/django-meta#configuration)
 
 #. Add meta information to your model::
 
@@ -77,7 +101,7 @@ Usage
             ...
         }
 
-#. Push metadata in the context using `as_meta` method::
+#. Push metadata in the context using ``as_meta`` method::
 
     class MyView(DetailView):
 
@@ -85,10 +109,10 @@ Usage
 
         def get_context_data(self, **kwargs):
             context = super(MyView, self).get_context_data(self, **kwargs)
-            context['meta'] = self.get_object().as_meta()
+            context['meta'] = self.get_object().as_meta(self.request)
             return context
 
-#. Include `meta_mixin/meta.html` template in your templates::
+#. Include ``meta_mixin/meta.html`` template in your templates::
 
     {% load sekizai_tags %}
 
@@ -99,15 +123,15 @@ Usage
     <body>
     </body>
     </html>
-    
+
 Note
 ++++
-For Google+ support you must add `{% render_block 'html_extra' %}` in your template to add object type definition. See relevant Google+ snippets documentation (https://developers.google.com/+/web/snippet/)
+For Google+ support you must add ``{% render_block 'html_extra' %}`` in your template to add object type definition. See relevant Google+ snippets documentation (https://developers.google.com/+/web/snippet/)
 
 Example
 +++++++
 
-Look at the `example` folder for a sample implementation.
+Look at the ``example`` folder for a sample implementation.
 
 Available properties
 --------------------
@@ -126,7 +150,7 @@ Generic properties
 * modified_time: date-time of modification
 * expiration_time: date-time of expiration
 * url: canonical object url
- 
+
 Open Graph properties
 +++++++++++++++++++++
 * og_description: object description in Open Graph
@@ -137,7 +161,7 @@ Open Graph properties
 * og_author_url: Facebook URL to author's profile
 * tag: object tags
 
- 
+
 Twitter Cards properties
 ++++++++++++++++++++++++
 * twitter_description: object description on Twitter card (currently 200 chars max)
@@ -157,15 +181,15 @@ Settings
 
 Some of the above properties can be set either in the model or via settings paramaters
 
-* image: `META_DEFAULT_IMAGE` (must be an absolute URL)
-* object_type: `META_SITE_TYPE`
-* og_type: `META_FB_TYPE`
-* og_app_id: `META_FB_APPID`
-* og_profile_id: `META_FB_PROFILE_ID`
-* og_publisher: `META_FB_PUBLISHER`
-* og_author_url: `META_FB_AUTHOR_URL`
-* twitter_type: `META_TWITTER_TYPE`
-* twitter_site: `META_TWITTER_SITE`
-* twitter_author: `META_TWITTER_AUTHOR`
-* gplus_type: `META_GPLUS_TYPE`
-* gplus_author: `META_GPLUS_AUTHOR`
+* image: ``META_DEFAULT_IMAGE`` (must be an absolute URL)
+* object_type: ``META_SITE_TYPE``
+* og_type: ``META_FB_TYPE``
+* og_app_id: ``META_FB_APPID``
+* og_profile_id: ``META_FB_PROFILE_ID``
+* og_publisher: ``META_FB_PUBLISHER``
+* og_author_url: ``META_FB_AUTHOR_URL``
+* twitter_type: ``META_TWITTER_TYPE``
+* twitter_site: ``META_TWITTER_SITE``
+* twitter_author: ``META_TWITTER_AUTHOR``
+* gplus_type: ``META_GPLUS_TYPE``
+* gplus_author: ``META_GPLUS_AUTHOR``

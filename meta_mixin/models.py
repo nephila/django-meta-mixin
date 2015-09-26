@@ -52,7 +52,7 @@ class ModelMeta(object):
         from meta.views import Meta
         metadata = self.get_meta(request)
         meta = Meta()
-        with self.request(request):
+        with self._set_request(request):
             for field, value in metadata.items():
                 if value:
                     attr = getattr(self, value, False)
@@ -74,7 +74,7 @@ class ModelMeta(object):
         return meta
 
     @contextlib.contextmanager
-    def request(self, request):
+    def _set_request(self, request):
         self._request = request
         yield
         delattr(self, '_request')
