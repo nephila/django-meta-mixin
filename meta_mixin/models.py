@@ -40,13 +40,17 @@ class ModelMeta(object):
         'locale': False,
     }
 
+    def get_meta(self, request=None):
+        metadata = copy(self._metadata_default)
+        metadata.update(self._metadata)
+        return metadata
+
     def as_meta(self, request=None):
         """
         Method that generates the Meta object (from django-meta)
         """
         from meta.views import Meta
-        metadata = copy(self._metadata_default)
-        metadata.update(self._metadata)
+        metadata = self.get_meta(request)
         meta = Meta()
         with self.request(request):
             for field, value in metadata.items():
