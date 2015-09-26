@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import contextlib
 from copy import copy
+import warnings
 
 from django.conf import settings as dj_settings
 from django.contrib.sites.models import Site
@@ -124,7 +125,10 @@ class ModelMeta(object):
         return dj_settings.META_SITE_PROTOCOL
 
     def make_full_url(self, url):
-        DeprecationWarning()
+        warnings.warn(
+            'make_full_url is deprecated and it will be removed in 0.3',
+            DeprecationWarning
+        )
         return self.build_absolute_uri(url)
 
     def build_absolute_uri(self, url):
