@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import contextlib
 from copy import copy
 
 from django.conf import settings as dj_settings
@@ -39,7 +40,7 @@ class ModelMeta(object):
         'locale': False,
     }
 
-    def as_meta(self):
+    def as_meta(self, request=None):
         """
         Method that generates the Meta object (from django-meta)
         """
@@ -47,26 +48,35 @@ class ModelMeta(object):
         metadata = copy(self._metadata_default)
         metadata.update(self._metadata)
         meta = Meta()
-        for field, value in metadata.items():
-            if value:
-                attr = getattr(self, value, False)
-                if attr is not False:
-                    if callable(attr):
-                        try:
-                            data = attr(field)
-                        except TypeError:
-                            data = attr()
+        with self.request(request):
+            for field, value in metadata.items():
+                if value:
+                    attr = getattr(self, value, False)
+                    if attr is not False:
+                        if callable(attr):
+                            try:
+                                data = attr(field)
+                            except TypeError:
+                                data = attr()
+                        else:
+                            data = attr
                     else:
-                        data = attr
-                else:
-                    data = value
-                setattr(meta, field, data)
-        for field in ('og_description', 'twitter_description',
-                      'gplus_description'):
+                        data = value
+                    setattr(meta, field, data)
+        for field in ('og_description', 'twitter_description', 'gplus_description'):
             generaldesc = getattr(meta, 'description', False)
             if not getattr(meta, field, False) and generaldesc:
                 setattr(meta, field, generaldesc)
         return meta
+
+    @contextlib.contextmanager
+    def request(self, request):
+        self._request = request
+        yield
+        delattr(self, '_request')
+
+    def get_request(self):
+        return getattr(self, '_request', None)
 
     def get_author(self):
         """
@@ -110,6 +120,13 @@ class ModelMeta(object):
         return dj_settings.META_SITE_PROTOCOL
 
     def make_full_url(self, url):
+        DeprecationWarning()
+        return self.build_absolute_uri(url)
+
+    def build_absolute_uri(self, url):
+        request = self.get_request()
+        if request:
+            return request.build_absolute_uri(url)
         s = Site.objects.get_current()
         meta_protocol = self.get_meta_protocol()
         if url.startswith('http'):
