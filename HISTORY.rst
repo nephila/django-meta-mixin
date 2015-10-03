@@ -3,7 +3,7 @@
 History
 -------
 
-0.2.0 (XXXX-XX-XX)
+0.2.0 (2015-10-03)
 ++++++++++++++++++
 
 * Add support for using request in extracting metadata
