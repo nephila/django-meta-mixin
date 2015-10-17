@@ -3,6 +3,12 @@
 History
 -------
 
+0.2.1 (2015-10-17)
+++++++++++++++++++
+
+* Add object types for facebook, twitter, google plus
+* Add translations
+
 0.2.0 (2015-10-03)
 ++++++++++++++++++
 
