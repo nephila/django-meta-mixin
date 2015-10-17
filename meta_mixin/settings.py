@@ -4,7 +4,6 @@ from __future__ import absolute_import, print_function, unicode_literals
 from django.conf import settings as django_settings
 from django.utils.translation import ugettext_lazy as _
 
-
 OBJECT_TYPES = (
     ('Article', _('Article')),
     ('Website', _('Website')),
