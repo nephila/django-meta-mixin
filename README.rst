@@ -2,14 +2,34 @@
 django-meta-mixin
 =================
 
-.. image:: https://badge.fury.io/py/django-meta-mixin.png
-    :target: https://badge.fury.io/py/django-meta-mixin
+.. image:: https://img.shields.io/pypi/v/django-meta-mixin.svg?style=flat-square
+    :target: https://pypi.python.org/pypi/django-meta-mixin
+    :alt: Latest PyPI version
 
-.. image:: https://travis-ci.org/nephila/django-meta-mixin.png?branch=master
+.. image:: https://img.shields.io/pypi/dm/django-meta-mixin.svg?style=flat-square
+    :target: https://pypi.python.org/pypi/django-meta-mixin
+    :alt: Monthly downloads
+
+.. image:: https://img.shields.io/pypi/pyversions/django-meta-mixin.svg?style=flat-square
+    :target: https://pypi.python.org/pypi/django-meta-mixin
+    :alt: Python versions
+
+.. image:: https://img.shields.io/travis/nephila/django-meta-mixin.svg?style=flat-square
     :target: https://travis-ci.org/nephila/django-meta-mixin
+    :alt: Latest Travis CI build status
 
-.. image:: https://coveralls.io/repos/nephila/django-meta-mixin/badge.png?branch=master
+.. image:: https://img.shields.io/coveralls/nephila/django-meta-mixin/master.svg?style=flat-square
     :target: https://coveralls.io/r/nephila/django-meta-mixin?branch=master
+    :alt: Test coverage
+
+.. image:: https://img.shields.io/codecov/c/github/nephila/django-meta-mixin/master.svg?style=flat-square
+    :target: https://codecov.io/github/nephila/django-meta-mixin
+    :alt: Test coverage
+
+.. image:: https://codeclimate.com/github/nephila/django-meta-mixin/badges/gpa.svg?style=flat-square
+   :target: https://codeclimate.com/github/nephila/django-meta-mixin
+   :alt: Code Climate
+
 
 Concepts
 --------
