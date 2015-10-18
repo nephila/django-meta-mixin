@@ -196,20 +196,87 @@ Google+ Snippet properties
 * gplus_type: object type according to schema.org types
 * gplus_author: Author Google+ account
 
+Object types
+------------
+
+``django-meta-mixin`` ships with the following object types for each set of meta tags it supports:
+
+Generic / OpenGraph
++++++++++++++++++++
+
+* Article
+* Website
+
+You can override by defining ``META_OBJECT_TYPES``/``META_FB_TYPES`` nested
+tuples in the project settings like::
+
+    META_OBJECT_TYPES = (
+        ('Article', _('Article')),
+        ('Website', _('Website')),
+    )
+
+    META_FB_TYPES = (
+        ('Article', _('Article')),
+        ('Website', _('Website')),
+    )
+
+Twitter
++++++++
+
+* Summary Card
+* Summary Card with Large Image
+* App Card
+
+You can override by defining ``META_TWITTER_TYPES`` nested
+tuples in the project settings like::
+
+    META_TWITTER_TYPES = (
+        ('summary', _('Summary Card')),
+        ('summary_large_image', _('Summary Card with Large Image')),
+        ('app', _('App Card')),
+    )
+
+Google+ / Schema.org
+++++++++++++++++++++
+
+* Article
+* Blog
+* WebPage
+* WebSite
+* Event
+* Product
+* Place
+* Person
+
+You can override by defining ``META_GPLUS_TYPES`` nested
+tuples in the project settings like::
+
+    META_GPLUS_TYPES = (
+        ('Article', _('Article')),
+        ('Blog', _('Blog')),
+        ('WebPage', _('Page')),
+        ('WebSite', _('WebSite')),
+        ('Event', _('Event')),
+        ('Product', _('Product')),
+        ('Place', _('Place')),
+        ('Person', _('Person')),
+    )
+
 Settings
 --------
 
 Some of the above properties can be set either in the model or via settings paramaters
 
+
 * image: ``META_DEFAULT_IMAGE`` (must be an absolute URL)
-* object_type: ``META_SITE_TYPE``
-* og_type: ``META_FB_TYPE``
-* og_app_id: ``META_FB_APPID``
-* og_profile_id: ``META_FB_PROFILE_ID``
-* og_publisher: ``META_FB_PUBLISHER``
-* og_author_url: ``META_FB_AUTHOR_URL``
-* twitter_type: ``META_TWITTER_TYPE``
-* twitter_site: ``META_TWITTER_SITE``
-* twitter_author: ``META_TWITTER_AUTHOR``
-* gplus_type: ``META_GPLUS_TYPE``
-* gplus_author: ``META_GPLUS_AUTHOR``
+* object_type: ``META_SITE_TYPE`` (default: first ``META_OBJECT_TYPES``)
+* og_type: ``META_FB_TYPE`` (default: first ``META_FB_TYPES``)
+* og_app_id: ``META_FB_APPID`` (default: blank)
+* og_profile_id: ``META_FB_PROFILE_ID`` (default: blank)
+* og_publisher: ``META_FB_PUBLISHER`` (default: blank)
+* og_author_url: ``META_FB_AUTHOR_URL`` (default: blank)
+* twitter_type: ``META_TWITTER_TYPE`` (default: first ``META_TWITTER_TYPES``)
+* twitter_site: ``META_TWITTER_SITE`` (default: blank)
+* twitter_author: ``META_TWITTER_AUTHOR`` (default: blank)
+* gplus_type: ``META_GPLUS_TYPE`` (default: first ``META_GPLUS_TYPES``)
+* gplus_author: ``META_GPLUS_AUTHOR`` (default: blank)
