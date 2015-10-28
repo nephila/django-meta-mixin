@@ -1,4 +1,5 @@
 {% load sekizai_tags meta_extra %}
+{% autoescape off %}
 	{% if meta.description %}{% meta 'description' meta.description %}{% endif %}
 	{% if meta.keywords %}{% meta_list 'keywords' meta.keywords %}{% endif %}
 {% if meta.use_og %}
@@ -38,3 +39,4 @@
 	{% if meta.gplus_description %}{% googleplus_prop 'description' meta.gplus_description %}{% endif %}
 	{% if meta.image %}{% googleplus_prop 'image' meta.image %}{% endif %}
 {% endif %}
+{% endautoescape %}
