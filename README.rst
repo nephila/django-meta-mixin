@@ -30,6 +30,19 @@ django-meta-mixin
    :target: https://codeclimate.com/github/nephila/django-meta-mixin
    :alt: Code Climate
 
+Warning
+-------
+
+Version 0.2.1 is the last version ever of **django-meta-mixin**
+
+All the codebase, features and documentation has been moved to
+https://github.com/nephila/django-meta and it will be relesed in
+**django-meta** 1.0.
+
+**django-meta** 1.0 is a drop-in replacement for **django-meta-mixin**: an empty
+**django-meta-mixin** 0.3 package will be released together with **django-meta-mixin**
+to satisfy dependencies but all the following features and fixes will be released
+in **django-meta**
 
 Concepts
 --------
