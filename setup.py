@@ -4,14 +4,10 @@
 import os
 import sys
 
-import meta_mixin
-
 try:
     from setuptools import setup
 except ImportError:
     from distutils.core import setup
-
-version = meta_mixin.__version__
 
 if sys.argv[-1] == 'publish':
     os.system('python setup.py sdist upload')
@@ -25,14 +21,13 @@ history = open('HISTORY.rst').read().replace('.. :changelog:', '')
 
 setup(
     name='django-meta-mixin',
-    version=version,
+    version='0.3.0b1',
     description="""Social meta tags mixin for django-meta""",
     long_description=readme + '\n\n' + history,
     author='Iacopo Spalletti',
     author_email='i.spalletti@nephila.it',
     url='https://github.com/nephila/django-meta-mixin',
     packages=[
-        'meta_mixin',
     ],
     include_package_data=True,
     install_requires=[
