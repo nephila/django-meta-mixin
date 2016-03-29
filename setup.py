@@ -31,8 +31,8 @@ setup(
     ],
     include_package_data=True,
     install_requires=[
-        'django-meta',
-        'django_sekizai',
+        'django-meta>=1.0',
+        'django-sekizai',
     ],
     license="BSD",
     zip_safe=False,
