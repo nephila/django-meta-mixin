@@ -21,7 +21,7 @@ history = open('HISTORY.rst').read().replace('.. :changelog:', '')
 
 setup(
     name='django-meta-mixin',
-    version='0.3.0b1',
+    version='0.3.0',
     description="""Social meta tags mixin for django-meta""",
     long_description=readme + '\n\n' + history,
     author='Iacopo Spalletti',
